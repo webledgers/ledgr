@@ -1,0 +1,23 @@
+{
+  "name": "ledgr",
+  "version": "0.0.1",
+  "description": "nostr ledgers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webledgers/ledgr.git"
+  },
+  "keywords": [
+    "nostr",
+    "ledgr"
+  ],
+  "author": "Melvin Carvalho",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/webledgers/ledgr/issues"
+  },
+  "homepage": "https://github.com/webledgers/ledgr#readme"
+}
