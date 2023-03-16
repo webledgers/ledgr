@@ -1,7 +1,7 @@
 // ledger.js
 import fs from 'fs';
 
-export default class Ledger {
+export default class Ledgr {
   constructor() {
     this.filename = 'ledgr.json';
     this.balances = this.loadBalances();

@@ -89,22 +89,23 @@ transfer(from_npub, to_npub, amount)
 
 JavaScript
 
-- Deposit 100 satoshis to the public key 'npub1'
-
 ```JavaScript
-deposit('npub1', 100)
-```
+import { Ledger } from './ledger.js';
 
-- Withdraw 50 satoshis from the public key 'npub1'
+// Create a new Ledger instance
+const ledger = new Ledger();
 
-```JavaScript
-withdraw('npub1', 50)
-```
+// Deposit 100 satoshis to the public key 'pubkey1'
+ledger.deposit('pubkey1', 100);
 
-- Transfer 25 satoshis from the public key 'npub1' to the public key 'npub2'
+// Withdraw 50 satoshis from the public key 'pubkey1'
+ledger.withdraw('pubkey1', 50);
 
-```JavaScript
-transfer('npub1', 'npub2', 25)
+// Transfer 25 satoshis from the public key 'pubkey1' to the public key 'pubkey2'
+ledger.transfer('pubkey1', 'pubkey2', 25);
+
+// Print the current balances
+console.log(ledger.balances);
 ```
 
 This way, you can use Ledgr to manage the balances of individual public keys and perform various operations such as deposits, withdrawals, and transfers of satoshis.
