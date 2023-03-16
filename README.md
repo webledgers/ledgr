@@ -18,14 +18,21 @@ Generate nostr keys from command line
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![npm](https://img.shields.io/npm/v/ledgr)](https://npmjs.com/package/ledgr)
 [![npm](https://img.shields.io/npm/dw/ledgr.svg)](https://npmjs.com/package/ledgr)
-[![Github Stars](https://img.shields.io/github/stars/webledger/ledgr.svg)](https://github.com/webledger/ledgr/)
+[![Github Stars](https://img.shields.io/github/stars/webledger/ledgr.svg)](https://github.com/webledgers/ledgr/)
 
 
-## spec
 
-### data
 
-ledgr is kept in a single JSON file
+## Ledgr
+
+Ledgr is a simple account management system that keeps track of balances for individual nostr public keys.
+
+## Specification
+
+### Data
+
+Ledgr is stored in a single JSON file that contains public keys and their balances:
+
 ```json
 {
    "pubkey1": 1,
@@ -34,8 +41,89 @@ ledgr is kept in a single JSON file
 }
 ```
 
-### functions
+### Functions
 
-- **deposit**: deposits satoshis to a public key
-- **withdraw**: withdraws satoshis to a public key
-- **transfer**: transfers satoshis from one key to another
+Ledger offers the following functions for working with balances of public keys:
+
+- deposit: Deposits satoshis to a public key.
+- withdraw: Withdraws satoshis from a public key.
+- transfer: Transfers satoshis from one public key to another.
+
+## Guide
+
+### Deposit
+
+To deposit satoshis to a public key, use the deposit function.
+
+```JavaScript
+deposit(npub, amount)
+```
+
+- npub: The public key to which the satoshis should be deposited.
+- amount: The number of satoshis you want to deposit.
+
+### Withdraw
+
+To withdraw satoshis from a public key, use the withdraw function.
+
+```Javascript
+withdraw(npub, amount)
+```
+
+- npub: The public key from which the satoshis should be withdrawn.
+- amount: The number of satoshis you want to withdraw.
+
+### Transfer
+
+To transfer satoshis from one public key to another, use the transfer function.
+
+```JavaScript
+transfer(from_npub, to_npub, amount)
+```
+
+- from_npub: The public key from which the satoshis should be transferred.
+- to_npub: The public key to which the satoshis should be transferred.
+- amount: The number of satoshis you want to transfer.
+
+## Usage Example
+
+JavaScript
+
+- Deposit 100 satoshis to the public key 'npub1'
+
+```JavaScript
+deposit('npub1', 100)
+```
+
+- Withdraw 50 satoshis from the public key 'npub1'
+
+```JavaScript
+withdraw('npub1', 50)
+```
+
+- Transfer 25 satoshis from the public key 'npub1' to the public key 'npub2'
+
+```JavaScript
+transfer('npub1', 'npub2', 25)
+```
+
+This way, you can use Ledgr to manage the balances of individual public keys and perform various operations such as deposits, withdrawals, and transfers of satoshis.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
