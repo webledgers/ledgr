@@ -3,7 +3,7 @@
 </div>
 
 <div align="center">  
-Generate nostr keys from command line
+Simple Nostr Ledgers
 </div>
 
 ---
@@ -35,9 +35,9 @@ Ledgr is stored in a single JSON file that contains public keys and their balanc
 
 ```json
 {
-   "pubkey1": 1,
-   "pubkey2": 2,
-   "pubkey3": 3
+   "npub1": 1,
+   "npub2": 2,
+   "npub3": 3
 }
 ```
 
@@ -95,14 +95,14 @@ import { Ledger } from './ledger.js';
 // Create a new Ledger instance
 const ledger = new Ledger();
 
-// Deposit 100 satoshis to the public key 'pubkey1'
-ledger.deposit('pubkey1', 100);
+// Deposit 100 satoshis to the public key 'npub1'
+ledger.deposit('npub1', 100);
 
-// Withdraw 50 satoshis from the public key 'pubkey1'
-ledger.withdraw('pubkey1', 50);
+// Withdraw 50 satoshis from the public key 'npub1'
+ledger.withdraw('npub1', 50);
 
-// Transfer 25 satoshis from the public key 'pubkey1' to the public key 'pubkey2'
-ledger.transfer('pubkey1', 'pubkey2', 25);
+// Transfer 25 satoshis from the public key 'npub1' to the public key 'npub2'
+ledger.transfer('npub1', 'npub2', 25);
 
 // Print the current balances
 console.log(ledger.balances);
