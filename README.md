@@ -41,6 +41,8 @@ Ledgr is stored in a single JSON file that contains public keys and their balanc
 }
 ```
 
+**Note:** By default, the ledgr is stored in a file called ledgr.json.
+
 ### Functions
 
 Ledger offers the following functions for working with balances of public keys:
