@@ -1,6 +1,6 @@
 {
   "name": "ledgr",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "nostr ledgers",
   "main": "index.js",
   "scripts": {
@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/webledgers/ledgr/issues"
   },
-  "homepage": "https://github.com/webledgers/ledgr#readme"
+  "homepage": "https://github.com/webledgers/ledgr#readme",
+  "dependencies": {
+    "fs": "^0.0.1-security"
+  }
 }
