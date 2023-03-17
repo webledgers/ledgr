@@ -31,7 +31,7 @@ Ledgr is a simple account management system that keeps track of balances for ind
 
 ### Data
 
-Ledgr is stored in a single JSON file that contains public keys and their balances:
+Ledgr is stored in a single JSON file that contains nostr public keys and their balances:
 
 ```json
 {
@@ -41,15 +41,15 @@ Ledgr is stored in a single JSON file that contains public keys and their balanc
 }
 ```
 
-**Note:** By default, the ledgr is stored in a file called ledgr.json.
+**Note:** By default, the ledgr is stored in a file called _ledgr.json_.
 
 ### Functions
 
 Ledger offers the following functions for working with balances of public keys:
 
-- deposit: Deposits satoshis to a public key.
-- withdraw: Withdraws satoshis from a public key.
-- transfer: Transfers satoshis from one public key to another.
+- **deposit**: Deposits satoshis to a public key.
+- **withdraw**: Withdraws satoshis from a public key.
+- **transfer**: Transfers satoshis from one public key to another.
 
 ## Guide
 
@@ -92,22 +92,22 @@ transfer(from_npub, to_npub, amount)
 JavaScript
 
 ```JavaScript
-import { Ledger } from './ledger.js';
+import { Ledgr } from 'Ledgr';
 
-// Create a new Ledger instance
-const ledger = new Ledger();
+// Create a new Ledgr instance
+const ledgr = new Ledgr();
 
 // Deposit 100 satoshis to the public key 'npub1'
-ledger.deposit('npub1', 100);
+ledgr.deposit('npub1', 100);
 
 // Withdraw 50 satoshis from the public key 'npub1'
-ledger.withdraw('npub1', 50);
+ledgr.withdraw('npub1', 50);
 
 // Transfer 25 satoshis from the public key 'npub1' to the public key 'npub2'
-ledger.transfer('npub1', 'npub2', 25);
+ledgr.transfer('npub1', 'npub2', 25);
 
 // Print the current balances
-console.log(ledger.balances);
+console.log(ledgr.balances);
 ```
 
 This way, you can use Ledgr to manage the balances of individual public keys and perform various operations such as deposits, withdrawals, and transfers of satoshis.
