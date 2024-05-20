@@ -1,11 +1,14 @@
 {
   "name": "ledgr",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "nostr ledgers",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "ledgr": "bin/ledgr.js"
   },
   "repository": {
     "type": "git",
