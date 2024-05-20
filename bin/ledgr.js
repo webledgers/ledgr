@@ -1,19 +1,45 @@
 #!/usr/bin/env node
+import { Command } from 'commander'
+import Ledgr from '../index.js'
 
-// main.js
-import Ledgr from '../index.js';
+const program = new Command()
+const ledger = new Ledgr()
 
-// Create a new Ledgr instance
-const ledgr = new Ledgr();
+program
+  .name('ledgr')
+  .description('CLI tool for Ledgr operations')
+  .version('1.0.0')
 
-// Deposit 100 satoshis to the public key 'pubkey1'
-ledgr.deposit('pubkey1', 100);
+program
+  .command('clean')
+  .description('Clean the ledger')
+  .action(() => {
+    ledger.clean()
+    console.log('Ledger cleaned.')
+  })
 
-// Withdraw 50 satoshis from the public key 'pubkey1'
-ledgr.withdraw('pubkey1', 50);
+program
+  .command('deposit <public_key> <amount>')
+  .description('Deposit an amount into a public key')
+  .action((public_key, amount) => {
+    ledger.deposit(public_key, parseFloat(amount))
+    console.log(`Deposited ${amount} into ${public_key}.`)
+  })
 
-// Transfer 25 satoshis from the public key 'pubkey1' to the public key 'pubkey2'
-ledgr.transfer('pubkey1', 'pubkey2', 25);
+program
+  .command('withdraw <public_key> <amount>')
+  .description('Withdraw an amount from a public key')
+  .action((public_key, amount) => {
+    ledger.withdraw(public_key, parseFloat(amount))
+    console.log(`Withdrew ${amount} from ${public_key}.`)
+  })
 
-// Print the current balances
-console.log(ledgr.balances);
+program
+  .command('transfer <from_public_key> <to_public_key> <amount>')
+  .description('Transfer an amount from one public key to another')
+  .action((from_public_key, to_public_key, amount) => {
+    ledger.transfer(from_public_key, to_public_key, parseFloat(amount))
+    console.log(`Transferred ${amount} from ${from_public_key} to ${to_public_key}.`)
+  })
+
+program.parse(process.argv)

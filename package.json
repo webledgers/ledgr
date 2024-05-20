@@ -1,6 +1,6 @@
 {
   "name": "ledgr",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "nostr ledgers",
   "main": "index.js",
   "type": "module",
@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/webledgers/ledgr#readme",
   "dependencies": {
+    "commander": "^12.1.0",
     "fs": "^0.0.1-security"
   }
 }
