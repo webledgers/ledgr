@@ -19,27 +19,49 @@ program
   })
 
 program
-  .command('deposit <public_key> <amount>')
-  .description('Deposit an amount into a public key')
-  .action((public_key, amount) => {
-    ledger.deposit(public_key, parseFloat(amount))
-    console.log(`Deposited ${amount} into ${public_key}.`)
+  .command('deposit <did> <amount>')
+  .description('Deposit an amount into a DID (format: did:nostr:<pubkey>)')
+  .action((did, amount) => {
+    ledger.deposit(did, parseFloat(amount))
+    console.log(`Deposited ${amount} into ${did}.`)
   })
 
 program
-  .command('withdraw <public_key> <amount>')
-  .description('Withdraw an amount from a public key')
-  .action((public_key, amount) => {
-    ledger.withdraw(public_key, parseFloat(amount))
-    console.log(`Withdrew ${amount} from ${public_key}.`)
+  .command('withdraw <did> <amount>')
+  .description('Withdraw an amount from a DID (format: did:nostr:<pubkey>)')
+  .action((did, amount) => {
+    ledger.withdraw(did, parseFloat(amount))
+    console.log(`Withdrew ${amount} from ${did}.`)
   })
 
 program
-  .command('transfer <from_public_key> <to_public_key> <amount>')
-  .description('Transfer an amount from one public key to another')
-  .action((from_public_key, to_public_key, amount) => {
-    ledger.transfer(from_public_key, to_public_key, parseFloat(amount))
-    console.log(`Transferred ${amount} from ${from_public_key} to ${to_public_key}.`)
+  .command('transfer <from_did> <to_did> <amount>')
+  .description('Transfer an amount from one DID to another (format: did:nostr:<pubkey>)')
+  .action((from_did, to_did, amount) => {
+    ledger.transfer(from_did, to_did, parseFloat(amount))
+    console.log(`Transferred ${amount} from ${from_did} to ${to_did}.`)
+  })
+
+program
+  .command('balance <did>')
+  .description('Get the balance for a DID (format: did:nostr:<pubkey>)')
+  .action((did) => {
+    const balance = ledger.getBalance(did)
+    console.log(`Balance for ${did}: ${balance}`)
+  })
+
+program
+  .command('list')
+  .description('List all entries in the ledger')
+  .action(() => {
+    if (ledger.data.entries.length === 0) {
+      console.log('No entries in the ledger.')
+    } else {
+      console.log('Ledger entries:')
+      ledger.data.entries.forEach(entry => {
+        console.log(`  ${entry.url}: ${entry.amount}`)
+      })
+    }
   })
 
 program.parse(process.argv)
