@@ -34,12 +34,12 @@ Ledgr uses a structured JSON format that contains an array of entries, where eac
   "entries": [
     {
       "type": "Entry",
-      "url": "did:nostr:npub1example1",
+      "url": "did:nostr:a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456",
       "amount": "100000"
     },
     {
       "type": "Entry",
-      "url": "did:nostr:npub1example2",
+      "url": "did:nostr:b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef12345678",
       "amount": "120000"
     }
   ]
@@ -53,7 +53,7 @@ Ledgr uses a structured JSON format that contains an array of entries, where eac
 Each entry in the ledger contains:
 
 - **type**: Always set to "Entry" to identify the record type
-- **url**: The DID identifier in the format `did:nostr:<pubkey>`
+- **url**: The DID identifier in the format `did:nostr:<pubkey>` (where pubkey is 64-character lowercase hex)
 - **amount**: The balance amount as a string (in satoshis)
 
 ### Functions
@@ -107,20 +107,23 @@ JavaScript
 ```JavaScript
 import Ledgr from 'ledgr';
 
-// Create a new Ledgr instance
+// Create a new Ledgr instance (uses default webledger.json)
 const ledgr = new Ledgr();
 
+// Or specify a custom file path
+const customLedgr = new Ledgr('/path/to/my-ledger.json');
+
 // Deposit 100 satoshis to a DID
-ledgr.deposit('did:nostr:npub1example1', 100);
+ledgr.deposit('did:nostr:a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456', 100);
 
 // Withdraw 50 satoshis from a DID
-ledgr.withdraw('did:nostr:npub1example1', 50);
+ledgr.withdraw('did:nostr:a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456', 50);
 
 // Transfer 25 satoshis from one DID to another
-ledgr.transfer('did:nostr:npub1example1', 'did:nostr:npub1example2', 25);
+ledgr.transfer('did:nostr:a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456', 'did:nostr:b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef12345678', 25);
 
 // Get balance for a specific DID
-const balance = ledgr.getBalance('did:nostr:npub1example1');
+const balance = ledgr.getBalance('did:nostr:a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456');
 console.log(`Balance: ${balance}`);
 
 // Print all balances (backward compatibility)
@@ -132,23 +135,21 @@ console.log(ledgr.balances);
 The CLI tool provides convenient commands for managing the ledger:
 
 ```bash
-# Deposit satoshis
-ledgr deposit did:nostr:npub1example1 100
-
-# Withdraw satoshis
-ledgr withdraw did:nostr:npub1example1 50
-
-# Transfer between DIDs
-ledgr transfer did:nostr:npub1example1 did:nostr:npub1example2 25
-
-# Check balance
-ledgr balance did:nostr:npub1example1
-
-# List all entries
+# Basic usage (uses default webledger.json)
+ledgr deposit did:nostr:a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456 100
+ledgr withdraw did:nostr:a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456 50
+ledgr transfer did:nostr:a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456 did:nostr:b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef12345678 25
+ledgr balance did:nostr:a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456
 ledgr list
-
-# Clean the ledger
 ledgr clean
+
+# Using a custom file path
+ledgr -f /path/to/my-ledger.json deposit did:nostr:a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456 100
+ledgr --file ./ledgers/company.json list
+ledgr -f ~/documents/personal-ledger.json balance did:nostr:a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456
+
+# All commands support the file option
+ledgr -f custom.json clean
 ```
 
 This way, you can use Ledgr to manage the balances of individual DIDs and perform various operations such as deposits, withdrawals, and transfers of satoshis using the decentralized identifier format.

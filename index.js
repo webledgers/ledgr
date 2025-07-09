@@ -2,8 +2,8 @@
 import fs from 'fs'
 
 export default class Ledgr {
-  constructor () {
-    this.filename = 'webledger.json'
+  constructor (filename = 'webledger.json') {
+    this.filename = filename
     this.data = this.loadData()
   }
 

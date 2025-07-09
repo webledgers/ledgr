@@ -52,13 +52,13 @@ Where:
 
 - `did:` - DID scheme prefix
 - `nostr:` - Method name indicating this is a Nostr-based identifier
-- `<pubkey>` - The actual public key (can be npub format or hex)
+- `<pubkey>` - The actual public key in lowercase hex format (64 characters)
 
 ### Examples
 
 ```
-did:nostr:npub1example1234567890abcdef
-did:nostr:02a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef12345
+did:nostr:a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456
+did:nostr:b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef12345678
 ```
 
 ## Complete Example
@@ -70,17 +70,17 @@ Here's a complete example of a ledger file with multiple entries:
   "entries": [
     {
       "type": "Entry",
-      "url": "did:nostr:npub1alice123456789",
+      "url": "did:nostr:a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456",
       "amount": "100000"
     },
     {
       "type": "Entry",
-      "url": "did:nostr:npub1bob987654321",
+      "url": "did:nostr:b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef12345678",
       "amount": "250000"
     },
     {
       "type": "Entry",
-      "url": "did:nostr:npub1charlie111222333",
+      "url": "did:nostr:c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456789a",
       "amount": "75000"
     }
   ]
@@ -111,9 +111,9 @@ Storing amounts as strings prevents floating-point precision issues and supports
 
 ```json
 {
-  "npub1alice": 100000,
-  "npub1bob": 250000,
-  "npub1charlie": 75000
+  "a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456": 100000,
+  "b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef12345678": 250000,
+  "c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456789a": 75000
 }
 ```
 
@@ -124,17 +124,17 @@ Storing amounts as strings prevents floating-point precision issues and supports
   "entries": [
     {
       "type": "Entry",
-      "url": "did:nostr:npub1alice",
+      "url": "did:nostr:a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456",
       "amount": "100000"
     },
     {
       "type": "Entry",
-      "url": "did:nostr:npub1bob",
+      "url": "did:nostr:b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef12345678",
       "amount": "250000"
     },
     {
       "type": "Entry",
-      "url": "did:nostr:npub1charlie",
+      "url": "did:nostr:c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456789a",
       "amount": "75000"
     }
   ]
@@ -146,7 +146,7 @@ Storing amounts as strings prevents floating-point precision issues and supports
 ### DID Validation
 
 - Must start with `did:nostr:`
-- Must contain a valid public key after the prefix
+- Must contain a valid public key after the prefix (64-character lowercase hex)
 - Case-sensitive
 
 ### Amount Validation
@@ -170,6 +170,28 @@ Storing amounts as strings prevents floating-point precision issues and supports
 - UTF-8 encoding
 - Pretty-printed with 2-space indentation
 - Automatic backup on modification (implementation-dependent)
+- Custom file paths supported via constructor parameter
+
+### Custom File Paths
+
+The Ledgr class supports custom file paths for flexibility:
+
+```javascript
+// Default behavior
+const ledgr = new Ledgr() // Uses 'webledger.json'
+
+// Custom file path
+const ledgr = new Ledgr('/path/to/my-ledger.json')
+const ledgr = new Ledgr('./ledgers/company.json')
+const ledgr = new Ledgr('~/documents/personal-ledger.json')
+```
+
+CLI usage with custom files:
+
+```bash
+ledgr -f /path/to/ledger.json deposit did:nostr:a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456 100
+ledgr --file custom.json list
+```
 
 ### Error Handling
 
